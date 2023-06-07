@@ -1,0 +1,44 @@
+//  --------------------------------------------------------------------------------
+//  Contains all application-wide Sass variables
+//  --------------------------------------------------------------------------------
+
+// $url-background-light-image: "../assets/images/bg-light2.jpg";
+// $url-background-dark-image: "../assets/images/bg-dark1.jpg";
+
+$color-yellow-base: rgb(255, 167, 0);
+$color-yellow-active: rgb(253, 153, 2);
+$color-brown-base: rgb(49, 11, 8);
+$color-brown-active: rgb(41, 7, 6);
+$color-yellow-base-theme: 255, 167, 0;
+$color-yellow-active-theme: 253, 153, 2;
+$color-brown-base-theme: 49, 11, 8;
+$color-brown-active-theme: 41, 7, 6;
+$color-gray-dark: gray;
+$color-gray-light: lightgray;
+$color-white-base: white;
+$box-shadow-yellow: 1px 1px 0 0 rgb(212, 138, 0), -1px 1px 0 0 rgb(212, 138, 0),
+  2px 2px 0 0 rgb(165, 107, 0), -2px 2px 0 0 rgb(165, 107, 0),
+  3px 3px 0 0 rgb(122, 80, 0), -3px 3px 0 0 rgb(122, 80, 0),
+  4px 4px 0 0 rgb(83, 54, 0), -4px 4px 0 0 rgb(83, 54, 0),
+  5px 5px 0 0 rgb(36, 23, 0), -5px 5px 0 0 rgb(36, 23, 0);
+$box-shadow-yellow-hover: 1px 1px 0 0 rgba(212, 138, 0, 0.8),
+  -1px 1px 0 0 rgb(212, 138, 0), 2px 2px 0 0 rgb(165, 107, 0),
+  -2px 2px 0 0 rgb(165, 107, 0), 3px 3px 0 0 rgb(122, 80, 0),
+  -3px 3px 0 0 rgb(122, 80, 0), 4px 4px 0 0 rgb(83, 54, 0),
+  -4px 4px 0 0 rgb(83, 54, 0), 5px 5px 0 0 rgb(36, 23, 0),
+  -5px 5px 0 0 rgb(36, 23, 0), 5px 5px 5px 0 rgb(36, 23, 0),
+  -5px 5px 5px 0 rgb(36, 23, 0);
+$box-shadow-brown: 1px 1px 0 0 #200705, -1px 1px 0 0 #200705,
+  2px 2px 0 0 #160403, -2px 2px 0 0 #160403, 3px 3px 0 0 #140302,
+  -3px 3px 0 0 #140302, 4px 4px 0 0 #110201, -4px 4px 0 0 #110201,
+  5px 5px 0 0 #000000, -5px 5px 0 0 #000000;
+$box-shadow-brown-hover: 1px 1px 0 0 #200705, -1px 1px 0 0 #200705,
+  2px 2px 0 0 #160403, -2px 2px 0 0 #160403, 3px 3px 0 0 #140302,
+  -3px 3px 0 0 #140302, 4px 4px 0 0 #110201, -4px 4px 0 0 #110201,
+  5px 5px 0 0 #000000, -5px 5px 0 0 #000000, 5px 5px 5px 0 #000000,
+  -5px 5px 5px 0 #000000;
+
+// $font-content: "Kavoon", cursive;
+// $font-function: "Times New Roman", cursive;
+
+$breakpoint: 530px;
