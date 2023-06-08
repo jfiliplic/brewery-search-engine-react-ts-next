@@ -6,16 +6,19 @@ export { ModeToggleButton, Logo, Searchbar, KeywordRadioBtn };
 
 const ModeToggleButton = () => {
   return (
-    <label htmlFor="toggle" className="styles.toggle">
-      <input type="checkbox" id="toggle" className="styles.toggle-input" />
-      <span className="styles.toggle-button"></span>
-    </label>
+    <div className={styles.themeToggle}>
+      <label htmlFor="toggle" className={styles.toggle}>
+        <input type="checkbox" id="toggle" className={styles.toggleInput} />
+        <span className={styles.toggleButton}></span>
+      </label>
+    </div>
   );
 };
 
 const LogoImage = () => {
   return (
     <Image
+      className={styles.logoImg}
       src={logo}
       alt="a couple of beer glasses"
       width={1200}
@@ -26,11 +29,11 @@ const LogoImage = () => {
 
 const Logo = () => {
   return (
-    <>
+    <div className={styles.logo}>
       <LogoImage />
-      <h1>BeerBeerGO!</h1>
-      <h3>Your local brewery search engine</h3>
-    </>
+      <h1 className={styles.engineName}>BeerBeerGO!</h1>
+      <h3 className={styles.engineSlogan}>Your local brewery search engine</h3>
+    </div>
   );
 };
 
@@ -40,7 +43,7 @@ const Searchbar = () => {
       <label htmlFor="searchbar"></label>
       <input
         type="search"
-        className="styles.searchbar"
+        className={styles.searchbar}
         name="searchbar"
         placeholder="Search by:"
         autoComplete="off"
@@ -50,7 +53,7 @@ const Searchbar = () => {
   );
 };
 
-function KeywordRadioBtn({ id, value }) {
+function KeywordRadioBtn({ id, value }: { id: string; value: string }) {
   return (
     <>
       <input type="radio" id={id} value={value} name="keyword" />

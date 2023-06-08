@@ -10,10 +10,10 @@ import {
 export default function Home() {
   return (
     <body>
-      <section className="styles.theme-toggle">
+      <section>
         <ModeToggleButton />
       </section>
-      <header className="styles.logo">
+      <header>
         <Logo />
       </header>
       <main>
@@ -30,7 +30,7 @@ export default function Home() {
             <label htmlFor="any">any keyword</label>
           </fieldset>
         </form>
-        <div className="styles.result-cards"></div>
+        <div className={styles.resultCards}></div>
       </main>
     </body>
   );

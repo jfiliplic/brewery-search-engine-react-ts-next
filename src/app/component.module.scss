@@ -1,36 +1,29 @@
-//  --------------------------------------------------------------------------------
-//  Contains all style related to header of the site/application
-//  --------------------------------------------------------------------------------
-
-@use "../abstracts/variables" as *;
-
 .logo {
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  .logoImg {
+  img {
     height: 130px;
     width: 130px;
   }
-
-  .engineName {
+  h1 {
     position: relative;
     top: -75px;
     color: lightgray;
-    font-family: $font-content;
+    // font-family: $font-content;
     font-size: 4rem;
     font-weight: bold;
     text-shadow: 1px 1px darkgray;
   }
 
-  .engineSlogan {
+  h3 {
     position: relative;
     top: -110px;
     left: 0;
     text-align: center;
     color: yellow;
-    font-family: $font-function;
+    // font-family: $font-function;
     font-size: 1.5rem;
   }
 }
