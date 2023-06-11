@@ -13,7 +13,7 @@
   .engineName {
     position: relative;
     top: -75px;
-    color: lightgray;
+    color: $color-gray-light;
     font-family: $font-content;
     font-size: 4rem;
     font-weight: bold;
@@ -25,7 +25,7 @@
     top: -110px;
     left: 0;
     text-align: center;
-    color: yellow;
+    color: $color-yellow-base;
     font-family: $font-function;
     font-size: 1.5rem;
   }

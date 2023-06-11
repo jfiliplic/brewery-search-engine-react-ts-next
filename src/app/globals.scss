@@ -1,3 +1,18 @@
+@use "../styles/variables.scss" as *;
+
+:root {
+  --font-content-size: 1.8rem;
+  --font-function-size: 1.5rem;
+  background-image: url($url-background-light-image);
+}
+
+@media (max-width: $breakpoint) {
+  :root {
+    --font-content-size: 1.4rem;
+    --font-function-size: 1.2rem;
+  }
+}
+
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 
 /* Document

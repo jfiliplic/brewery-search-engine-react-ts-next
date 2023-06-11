@@ -9,10 +9,8 @@ export function KeywordRadioBtnGroup() {
   // const onOptionChange = ({ e }: { e: ChangeEvent }) => {
   //   const element = e.target as HTMLInputElement;
   //   setKeyword(element.value);
-  console.log(keyword);
   const onOptionChange = (e) => {
     setKeyword(e.target.value);
-    console.log(keyword);
   };
 
   return (
