@@ -8,6 +8,7 @@ export const Logo = () => {
       <Image
         className={styles.logoImg}
         src={logo}
+        priority={true}
         alt="a couple of beer glasses"
         width={1200}
         height={1200}

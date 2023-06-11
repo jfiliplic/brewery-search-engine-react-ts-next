@@ -1,6 +1,6 @@
 import styles from "./page.module.scss";
 
-import { KeywordRadioBtn } from "@/components/KeywordRadioBtn/KeywordRadioBtn";
+import { KeywordRadioBtnGroup } from "@/components/KeywordRadioBtn/KeywordRadioBtnGroup";
 
 import { ModeToggleBtn } from "@/components/ModeToggleBtn/ModeToggleBtn";
 
@@ -21,14 +21,7 @@ export default function Home() {
         <form name="search">
           <Searchbar />
           <fieldset>
-            <KeywordRadioBtn id="name" value="name" />
-            <label htmlFor="name">name</label>
-            <KeywordRadioBtn id="city" value="city" />
-            <label htmlFor="city">city</label>
-            <KeywordRadioBtn id="country" value="country" />
-            <label htmlFor="country">country</label>
-            <KeywordRadioBtn id="any" value="any" />
-            <label htmlFor="any">any keyword</label>
+            <KeywordRadioBtnGroup />
           </fieldset>
         </form>
         <div className={styles.resultCards}></div>
