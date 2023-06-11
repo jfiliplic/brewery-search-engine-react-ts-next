@@ -1,8 +1,4 @@
-//  --------------------------------------------------------------------------------
-//  Contains all style related to header of the site/application
-//  --------------------------------------------------------------------------------
-
-@use "../abstracts/variables" as *;
+@use "../../styles/variables.scss" as *;
 
 .logo {
   display: flex;

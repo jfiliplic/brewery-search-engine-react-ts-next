@@ -1,17 +1,18 @@
 import styles from "./page.module.scss";
 
-import {
-  ModeToggleButton,
-  Logo,
-  Searchbar,
-  KeywordRadioBtn,
-} from "./components";
+import { KeywordRadioBtn } from "@/components/KeywordRadioBtn/KeywordRadioBtn";
+
+import { ModeToggleBtn } from "@/components/ModeToggleBtn/ModeToggleBtn";
+
+import { Logo } from "@/components/Logo/Logo";
+
+import { Searchbar } from "@/components/Searchbar/Searchbar";
 
 export default function Home() {
   return (
     <body>
       <section>
-        <ModeToggleButton />
+        <ModeToggleBtn />
       </section>
       <header>
         <Logo />
