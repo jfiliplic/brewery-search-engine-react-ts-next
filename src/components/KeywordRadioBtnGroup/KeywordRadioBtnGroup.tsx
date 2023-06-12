@@ -10,7 +10,7 @@ function RadioBtn({
   selected,
 }: {
   value: string;
-  onChange: Function;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   selected: string;
 }) {
   return (
