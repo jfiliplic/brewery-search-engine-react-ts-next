@@ -1,6 +1,6 @@
 import styles from "./page.module.scss";
 
-import { KeywordRadioBtnGroup } from "@/components/KeywordRadioBtn/KeywordRadioBtnGroup";
+import { KeywordRadioBtnGroup } from "@/components/KeywordRadioBtnGroup/KeywordRadioBtnGroup";
 
 import { ModeToggleBtn } from "@/components/ModeToggleBtn/ModeToggleBtn";
 
