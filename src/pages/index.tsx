@@ -1,4 +1,4 @@
-import styles from "./page.module.scss";
+import styles from "../styles/Page.module.scss";
 
 import { KeywordRadioBtnGroup } from "@/components/KeywordRadioBtnGroup/KeywordRadioBtnGroup";
 
