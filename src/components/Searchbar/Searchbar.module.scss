@@ -1,0 +1,37 @@
+@use "../../styles/settings/variables.scss" as *;
+
+input.searchbar {
+  position: relative;
+  top: -50px;
+  height: 40px;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 15px;
+  border: none;
+  color: $color-brown-base;
+  font-size: var(--font-function-size);
+  font-family: $font-function;
+  font-weight: bold;
+
+  &::placeholder {
+    color: #{"rgba($color-brown-base, 0.5)"};
+  }
+
+  &:focus {
+    outline: 2px solid $color-yellow-base;
+
+    &::placeholder {
+      visibility: hidden;
+    }
+  }
+}
+
+@media (max-width: $breakpoint) {
+  input.searchbar {
+    height: 30px;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}
