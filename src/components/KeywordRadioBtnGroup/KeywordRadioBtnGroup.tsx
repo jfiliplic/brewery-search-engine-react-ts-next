@@ -32,8 +32,8 @@ export function KeywordRadioBtnGroup() {
   };
 
   return (
-    <div className={styles.radioGroupWrapper}>
-      {["name", "city", "country", "any"].map((value) => (
+    <fieldset className={styles.radioGroupWrapper}>
+      {["name", "city", "country", "any keyword"].map((value) => (
         <RadioBtn
           key={value}
           value={value}
@@ -41,6 +41,6 @@ export function KeywordRadioBtnGroup() {
           selected={keyword}
         />
       ))}
-    </div>
+    </fieldset>
   );
 }
