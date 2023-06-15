@@ -10,7 +10,7 @@ fieldset.radioGroupWrapper {
 
   .radioWrapper {
     display: flex;
-    margin-right: 1.8rem;
+    margin-right: 18px;
 
     &:last-of-type {
       margin-right: 0;
@@ -18,9 +18,9 @@ fieldset.radioGroupWrapper {
 
     input[type="radio"] {
       position: relative;
-      height: 1.5rem;
-      width: 1.5rem;
-      margin-right: 0.5rem;
+      height: 15px;
+      width: 15px;
+      margin-right: 5px;
       align-self: center;
       accent-color: $color-yellow-base;
 
@@ -49,8 +49,8 @@ fieldset.radioGroupWrapper {
 
     .radioWrapper {
       input[type="radio"] {
-        height: 1.2rem;
-        width: 1.2rem;
+        height: 12px;
+        width: 12px;
       }
     }
   }
