@@ -1,7 +1,57 @@
-.radioGroupWrapper {
+@use "../../styles/settings" as *;
+
+fieldset.radioGroupWrapper {
   display: flex;
+  position: relative;
+  top: -40px;
+  margin: 0 auto;
+  max-width: 75%;
+  border: none;
 
   .radioWrapper {
     display: flex;
+    margin-right: 18px;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+
+    input[type="radio"] {
+      position: relative;
+      height: 15px;
+      width: 15px;
+      margin-right: 5px;
+      align-self: center;
+      accent-color: $color-yellow-base;
+
+      &:first-of-type {
+        margin-left: 3px;
+      }
+      &:checked + label {
+        color: $color-yellow-base;
+      }
+    }
+
+    label {
+      color: $color-white-base;
+      font-size: var(--font-function-size);
+      font-family: $font-function;
+      font-weight: bold;
+    }
+  }
+}
+
+@media (max-width: $breakpoint) {
+  fieldset.radioGroupWrapper {
+    display: block;
+    float: left;
+    padding-left: 0px;
+
+    .radioWrapper {
+      input[type="radio"] {
+        height: 12px;
+        width: 12px;
+      }
+    }
   }
 }

@@ -16,9 +16,7 @@ export default function Home() {
       <main>
         <form className={styles.search}>
           <Searchbar />
-          <fieldset>
-            <KeywordRadioBtnGroup />
-          </fieldset>
+          <KeywordRadioBtnGroup />
         </form>
       </main>
     </>
