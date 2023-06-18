@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styles from "./KeywordRadioBtnGroup.module.scss";
 
 function RadioBtn({
@@ -24,9 +23,13 @@ function RadioBtn({
   );
 }
 
-export function KeywordRadioBtnGroup() {
-  const [keyword, setKeyword] = useState("name");
-
+export function KeywordRadioBtnGroup({
+  keyword,
+  setKeyword,
+}: {
+  keyword: string;
+  setKeyword: any;
+}) {
   const onOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
   };

@@ -3,8 +3,18 @@ import { KeywordRadioBtnGroup } from "@/components/KeywordRadioBtnGroup/KeywordR
 import { ModeToggleBtn } from "@/components/ModeToggleBtn/ModeToggleBtn";
 import { Logo } from "@/components/Logo/Logo";
 import { Searchbar } from "@/components/Searchbar/Searchbar";
+import { useState } from "react";
 
 export default function Home() {
+  const [keyword, setKeyword] = useState("name");
+  const [text, setText] = useState("");
+  const [submitted, setSubmitted] = useState("");
+  const onSearchbarSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSubmitted(text);
+    setText("");
+  };
+
   return (
     <>
       <section>
@@ -14,9 +24,9 @@ export default function Home() {
         <Logo />
       </header>
       <main>
-        <form className={styles.search}>
-          <Searchbar />
-          <KeywordRadioBtnGroup />
+        <form className={styles.search} onSubmit={onSearchbarSubmit}>
+          <Searchbar text={text} setText={setText} />
+          <KeywordRadioBtnGroup keyword={keyword} setKeyword={setKeyword} />
         </form>
       </main>
     </>
