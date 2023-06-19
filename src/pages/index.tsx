@@ -15,7 +15,7 @@ export default function Home() {
       setSubmitted(text);
       setText("");
     },
-    [text, setText, setSubmitted]
+    [text]
   );
 
   return (
