@@ -1,5 +1,12 @@
 import styles from "./KeywordRadioBtnGroup.module.scss";
 
+export enum SearchKeywords {
+  name = "name",
+  city = "city",
+  country = "country",
+  any = "any klobasa",
+}
+
 function RadioBtn({
   value,
   onChange,
@@ -36,7 +43,12 @@ export function KeywordRadioBtnGroup({
 
   return (
     <fieldset className={styles.radioGroupWrapper}>
-      {["name", "city", "country", "any keyword"].map((value) => (
+      {[
+        SearchKeywords.name,
+        SearchKeywords.city,
+        SearchKeywords.country,
+        SearchKeywords.any,
+      ].map((value) => (
         <RadioBtn
           key={value}
           value={value}
