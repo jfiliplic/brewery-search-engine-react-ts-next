@@ -6,73 +6,83 @@ import { Searchbar } from "@/components/Searchbar/Searchbar";
 import { useState, useCallback } from "react";
 
 export default function Home() {
-  const baseEndpoint = "https://api.openbrewerydb.org/v1/breweries";
+  // const baseEndpoint = "https://api.openbrewerydb.org/v1/breweries";
   const [keyword, setKeyword] = useState("name");
-  const [text, setText] = useState("");
-  const [submitted, setSubmitted] = useState("");
+  const [query, setQuery] = useState("");
+  // const [submitted, setSubmitted] = useState("");
 
-  const capitalizeFirstLetter = useCallback((submitted: string) => {
-    const words = submitted.split(" ");
-    return words
-      .map((word) => {
-        return word[0].toUpperCase() + word.substring(1).toLowerCase();
-      })
-      .join(" ");
+  // const searchByCountry = useCallback(
+  //   async (submitted: string) => {
+  //     const responseCountry = await fetch(
+  //       `${baseEndpoint}/search?query=${query}&per_page=200`
+  //     );
+  //     const unfilteredData = await responseCountry.json();
+  //     const dataCountry = [];
+  //     for (const breweryData of unfilteredData) {
+  //       if (breweryData.country.toLowerCase().includes(query.toLowerCase())) {
+  //         dataCountry.push(breweryData);
+  //       }
+  //     }
+  //     return dataCountry;
+  //   },
+  //   [query]
+  // );
+
+  // const searchByAny = useCallback(async (query: string) => {
+  //   console.log(query);
+  //   const responseAny = await fetch(
+  //     `${baseEndpoint}/search?query=${query}&per_page=200`
+  //   );
+  //   const dataAny = await responseAny.json();
+  //   return dataAny;
+  // }, []);
+
+  // const searchByNameOrCity = useCallback(
+  //   async (submitted: String, keyword: string) => {
+  //     const responseNameOrCity = await fetch(
+  //       `${baseEndpoint}?by_${keyword}=${submitted}&per_page=200`
+  //     );
+  //     const dataNameOrCity = await responseNameOrCity.json();
+  //     return dataNameOrCity;
+  //   },
+  //   []
+  // );
+
+  // const handleKeywords = useCallback(
+  //   async (query: string) => {
+  //     if (keyword === "country") {
+  //       return searchByCountry(query);
+  //     } else if (keyword === "any") {
+  //       console.log(keyword);
+  //       return searchByAny(query);
+  //     } else return searchByNameOrCity(query, keyword);
+  //   },
+  //   [keyword, searchByAny, searchByCountry, searchByNameOrCity]
+  // );
+
+  const fetchBreweries = useCallback(async (url: string) => {
+    const response = await fetch(url);
+    return await response.json();
   }, []);
-
-  const searchByCountry = useCallback(
-    async (submitted: string) => {
-      const capitalizedQuery = capitalizeFirstLetter(submitted);
-      const responseCountry = await fetch(
-        `${baseEndpoint}/search?query={${capitalizedQuery}}&per_page=200`
-      );
-      const unfilteredData = await responseCountry.json();
-      const dataCountry = [];
-      for (const breweryData of unfilteredData) {
-        if (breweryData.country === capitalizedQuery) {
-          dataCountry.push(breweryData);
-        }
-      }
-      return dataCountry;
-    },
-    [capitalizeFirstLetter]
-  );
-
-  const searchByAny = useCallback(async (submitted: string) => {
-    console.log(submitted);
-    const responseAny = await fetch(
-      `${baseEndpoint}/search?query={${submitted}}&per_page=200`
-    );
-    const dataAny = await responseAny.json();
-    return dataAny;
-  }, []);
-
-  const searchByNameOrCity = useCallback(
-    async (submitted: String, keyword: string) => {
-      const responseNameOrCity = await fetch(
-        `${baseEndpoint}?by_${keyword}=${submitted}&per_page=200`
-      );
-      const dataNameOrCity = await responseNameOrCity.json();
-      return dataNameOrCity;
-    },
-    []
-  );
 
   const handleKeywords = useCallback(
-    async (submitted: string) => {
+    async (query: string, keyword: string) => {
+      let url = "https://api.openbrewerydb.org/v1/breweries";
       if (keyword === "country") {
-        return searchByCountry(submitted);
-      } else if (keyword === "any") {
-        return searchByAny(submitted);
-      } else return searchByNameOrCity(submitted, keyword);
+        url = url + `/search?query=${query}&per_page=200`;
+      } else if (keyword === "any keyword") {
+        url = url + `/search?query=${query}&per_page=200`;
+      } else {
+        url = url + `?by_${keyword}=${query}&per_page=200`;
+      }
+      return fetchBreweries(url);
     },
-    [keyword, searchByAny, searchByCountry, searchByNameOrCity]
+    [fetchBreweries]
   );
-  
+
   const fetchData = useCallback(
-    async (submitted: string) => {
-      const breweriesData = await handleKeywords(submitted);
-      console.log(breweriesData);
+    async (query: string, keyword: string) => {
+      const breweriesData = await handleKeywords(query, keyword);
       if (!(breweriesData.length > 0)) {
         console.log("no data");
         return;
@@ -86,18 +96,17 @@ export default function Home() {
   const onSearchbarSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      setSubmitted(text);
-      setText("");
-      if (!submitted) {
+      // setSubmitted(query);
+      // setQuery("");
+      // if (!submitted) {
+      //   return;
+      if (!query) {
         return;
-      } else {
-        fetchData(submitted);
       }
+      fetchData(query, keyword);
     },
-    [text, submitted, fetchData]
+    [query, fetchData, keyword]
   );
-  console.log(keyword, text, submitted);
-  console.log(submitted);
 
   return (
     <>
@@ -109,7 +118,7 @@ export default function Home() {
       </header>
       <main>
         <form className={styles.search} onSubmit={onSearchbarSubmit}>
-          <Searchbar text={text} setText={setText} />
+          <Searchbar query={query} setQuery={setQuery} />
           <KeywordRadioBtnGroup keyword={keyword} setKeyword={setKeyword} />
         </form>
       </main>
