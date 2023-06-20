@@ -22,7 +22,7 @@ export async function getServerSideProps({ params }) {
   let error = false;
 
   try {
-    const response = await fetch(`${baseEndpoint}WDWDa/${params.breweryId}`);
+    const response = await fetch(`${baseEndpoint}/${params.breweryId}`);
     brewery = await response.json();
   } catch (error) {
     error = true;
