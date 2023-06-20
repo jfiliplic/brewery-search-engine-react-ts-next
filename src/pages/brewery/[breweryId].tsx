@@ -1,6 +1,10 @@
 import { baseEndpoint } from "..";
 
-function Brewery({ brewery }) {
+function Brewery({ brewery, error }) {
+  if (error) {
+    return <div>Something went wrong</div>;
+  }
+
   return (
     <div>
       <p>{brewery.id}</p>
@@ -14,12 +18,20 @@ function Brewery({ brewery }) {
 export default Brewery;
 
 export async function getServerSideProps({ params }) {
-  const response = await fetch(`${baseEndpoint}/${params.breweryId}`);
-  const brewery = await response.json();
+  let brewery: any = null;
+  let error = false;
+
+  try {
+    const response = await fetch(`${baseEndpoint}WDWDa/${params.breweryId}`);
+    brewery = await response.json();
+  } catch (error) {
+    error = true;
+  }
 
   return {
     props: {
       brewery,
+      error,
     },
   };
 }
