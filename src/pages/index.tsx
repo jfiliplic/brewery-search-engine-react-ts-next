@@ -13,7 +13,7 @@ const baseEndpoint = "https://api.openbrewerydb.org/v1/breweries";
 export default function Home() {
   const [keyword, setKeyword] = useState("name");
   const [query, setQuery] = useState("");
-  const [breweries, setBreweries] = useState([]);
+  const [queryResults, setQueryResults] = useState([]);
 
   const fetchBreweries = useCallback(
     async (url: string, keyword: string) => {
@@ -52,7 +52,7 @@ export default function Home() {
   const fetchData = useCallback(
     async (query: string, keyword: string) => {
       const breweriesData = await handleKeywords(query, keyword);
-      setBreweries(breweriesData);
+      setQueryResults(breweriesData);
     },
     [handleKeywords]
   );
