@@ -1,81 +1,50 @@
 import styles from "../styles/Page.module.scss";
-import { KeywordRadioBtnGroup } from "@/components/KeywordRadioBtnGroup/KeywordRadioBtnGroup";
+import {
+  KeywordRadioBtnGroup,
+  SearchKeywords,
+} from "@/components/KeywordRadioBtnGroup/KeywordRadioBtnGroup";
 import { ModeToggleBtn } from "@/components/ModeToggleBtn/ModeToggleBtn";
 import { Logo } from "@/components/Logo/Logo";
 import { Searchbar } from "@/components/Searchbar/Searchbar";
 import { useState, useCallback } from "react";
 
+const baseEndpoint = "https://api.openbrewerydb.org/v1/breweries";
+
 export default function Home() {
-  // const baseEndpoint = "https://api.openbrewerydb.org/v1/breweries";
   const [keyword, setKeyword] = useState("name");
   const [query, setQuery] = useState("");
-  // const [submitted, setSubmitted] = useState("");
+  const [breweries, setBreweries] = useState([]);
 
-  // const searchByCountry = useCallback(
-  //   async (submitted: string) => {
-  //     const responseCountry = await fetch(
-  //       `${baseEndpoint}/search?query=${query}&per_page=200`
-  //     );
-  //     const unfilteredData = await responseCountry.json();
-  //     const dataCountry = [];
-  //     for (const breweryData of unfilteredData) {
-  //       if (breweryData.country.toLowerCase().includes(query.toLowerCase())) {
-  //         dataCountry.push(breweryData);
-  //       }
-  //     }
-  //     return dataCountry;
-  //   },
-  //   [query]
-  // );
+  const fetchBreweries = useCallback(
+    async (url: string, keyword: string) => {
+      const response = await fetch(url);
 
-  // const searchByAny = useCallback(async (query: string) => {
-  //   console.log(query);
-  //   const responseAny = await fetch(
-  //     `${baseEndpoint}/search?query=${query}&per_page=200`
-  //   );
-  //   const dataAny = await responseAny.json();
-  //   return dataAny;
-  // }, []);
+      if (keyword === SearchKeywords.country) {
+        const unfilteredData = await response.json();
+        return unfilteredData.filter((breweryData: any) =>
+          breweryData.country.toLowerCase().includes(query.toLowerCase())
+        );
+      }
 
-  // const searchByNameOrCity = useCallback(
-  //   async (submitted: String, keyword: string) => {
-  //     const responseNameOrCity = await fetch(
-  //       `${baseEndpoint}?by_${keyword}=${submitted}&per_page=200`
-  //     );
-  //     const dataNameOrCity = await responseNameOrCity.json();
-  //     return dataNameOrCity;
-  //   },
-  //   []
-  // );
-
-  // const handleKeywords = useCallback(
-  //   async (query: string) => {
-  //     if (keyword === "country") {
-  //       return searchByCountry(query);
-  //     } else if (keyword === "any") {
-  //       console.log(keyword);
-  //       return searchByAny(query);
-  //     } else return searchByNameOrCity(query, keyword);
-  //   },
-  //   [keyword, searchByAny, searchByCountry, searchByNameOrCity]
-  // );
-
-  const fetchBreweries = useCallback(async (url: string) => {
-    const response = await fetch(url);
-    return await response.json();
-  }, []);
+      return await response.json();
+    },
+    [query]
+  );
 
   const handleKeywords = useCallback(
     async (query: string, keyword: string) => {
-      let url = "https://api.openbrewerydb.org/v1/breweries";
-      if (keyword === "country") {
-        url = url + `/search?query=${query}&per_page=200`;
-      } else if (keyword === "any keyword") {
-        url = url + `/search?query=${query}&per_page=200`;
+      let url = baseEndpoint;
+      if (keyword === SearchKeywords.country) {
+        url = url + `/search?query=${query}`;
+      } else if (keyword === SearchKeywords.any) {
+        url = url + `/search?query=${query}`;
       } else {
-        url = url + `?by_${keyword}=${query}&per_page=200`;
+        url = url + `?by_${keyword}=${query}`;
       }
-      return fetchBreweries(url);
+
+      url = url + `&per_page=200`;
+
+      return fetchBreweries(url, keyword);
     },
     [fetchBreweries]
   );
@@ -83,12 +52,7 @@ export default function Home() {
   const fetchData = useCallback(
     async (query: string, keyword: string) => {
       const breweriesData = await handleKeywords(query, keyword);
-      if (!(breweriesData.length > 0)) {
-        console.log("no data");
-        return;
-      } else {
-        console.log("your results");
-      }
+      setBreweries(breweriesData);
     },
     [handleKeywords]
   );
@@ -96,10 +60,7 @@ export default function Home() {
   const onSearchbarSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      // setSubmitted(query);
-      // setQuery("");
-      // if (!submitted) {
-      //   return;
+
       if (!query) {
         return;
       }
