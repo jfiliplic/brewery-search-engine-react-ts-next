@@ -4,7 +4,7 @@
   position: relative;
   max-width: 1000px;
   margin: 0 auto;
-  padding: 3rem 3rem;
+  padding: 30px 30px;
   color: white;
 }
 
@@ -13,8 +13,8 @@
 }
 
 .singleCard {
-  margin-bottom: 1.5rem;
-  padding: 2.5rem;
+  margin-bottom: 15px;
+  padding: 25px;
   border-radius: 10px;
   background-color: #{"rgba(var(--color-result-card-bg), 0.8)"};
   box-shadow: var(--box-shadow-result-card);
@@ -30,7 +30,7 @@
     font-weight: bold;
 
     span {
-      margin: 0 2rem;
+      margin: 0 20px;
     }
   }
 
@@ -47,7 +47,7 @@
 
 @media (max-width: $breakpoint) {
   .singleCard {
-    padding: 1rem;
-    line-height: 2rem;
+    padding: 10px;
+    line-height: 20px;
   }
 }
