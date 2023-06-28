@@ -6,6 +6,7 @@ import {
 import { ModeToggleBtn } from "@/components/ModeToggleBtn/ModeToggleBtn";
 import { Logo } from "@/components/Logo/Logo";
 import { Searchbar } from "@/components/Searchbar/Searchbar";
+import { ResultCards } from "@/components/ResultCards/ResultCards";
 import { useState, useCallback } from "react";
 
 const baseEndpoint = "https://api.openbrewerydb.org/v1/breweries";
@@ -82,6 +83,7 @@ export default function Home() {
           <Searchbar query={query} setQuery={setQuery} />
           <KeywordRadioBtnGroup keyword={keyword} setKeyword={setKeyword} />
         </form>
+        <ResultCards queryResults={queryResults} />
       </main>
     </>
   );
