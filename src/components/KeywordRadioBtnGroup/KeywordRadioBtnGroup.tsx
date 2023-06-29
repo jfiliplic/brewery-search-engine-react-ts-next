@@ -33,12 +33,18 @@ function RadioBtn({
 export function KeywordRadioBtnGroup({
   keyword,
   setKeyword,
+  setQueryResults,
+  setShouldShowEmpty,
 }: {
   keyword: string;
   setKeyword: any;
+  setQueryResults: any;
+  setShouldShowEmpty: any;
 }) {
   const onOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
+    setQueryResults([]);
+    setShouldShowEmpty(true);
   };
 
   return (

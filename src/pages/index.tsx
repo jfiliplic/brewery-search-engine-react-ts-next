@@ -56,10 +56,10 @@ export default function Home() {
       const breweriesData = await handleKeywords(query, keyword);
       if (!(breweriesData.length > 0)) {
         setShouldShowEmpty(false); // to show alert msg for no hit search
-        setQueryResults([]); // to prevent showing results of last successful search before no hit search while entering text for new search
+        // setQueryResults([]); // to prevent showing results of last successful search before no hit search while entering text for new search. ver2 - če to odstranim, se ne spremeni nič
       } else {
         setQueryResults(breweriesData);
-        // setShouldShowEmpty(true);
+        // setShouldShowEmpty(true); // ver1 - če to odvzamem, se ne spremeni nič; ver2 - če to dodam, se ne spremeni nič
       }
     },
     [handleKeywords]
@@ -70,8 +70,8 @@ export default function Home() {
       e.preventDefault();
 
       if (!query) {
-        // setShouldShowEmpty(true);
-        setQueryResults([]); //submitting empty search form with "Enter" rerenders result section according to 1st condition
+        setShouldShowEmpty(true); // ver1 - če to odvzamem, se ne spremeni 0; ver2 - če to dodam, dela tudi z no match: ubmitting empty search form with "Enter" rerenders result section according to 1st condition;
+        setQueryResults([]); //submitting empty search form with "Enter" rerenders result section according to 1st condition; ver2 - samo če rezultati, če no match, po enter ne vrže ven null. če vzamem stran, ne dela niti, če rezultati
         return;
       }
       fetchData(query, keyword);
@@ -92,9 +92,15 @@ export default function Home() {
           <Searchbar
             query={query}
             setQuery={setQuery}
+            setQueryResults={setQueryResults}
             setShouldShowEmpty={setShouldShowEmpty}
           />
-          <KeywordRadioBtnGroup keyword={keyword} setKeyword={setKeyword} />
+          <KeywordRadioBtnGroup
+            keyword={keyword}
+            setKeyword={setKeyword}
+            setQueryResults={setQueryResults}
+            setShouldShowEmpty={setShouldShowEmpty}
+          />
         </form>
         <ResultCards
           queryResults={queryResults}
