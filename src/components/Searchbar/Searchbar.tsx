@@ -1,12 +1,23 @@
 import styles from "./Searchbar.module.scss";
 import { useCallback } from "react";
 
-export function Searchbar({ query, setQuery }: { query: string; setQuery: any }) {
+export function Searchbar({
+  query,
+  setQuery,
+  setShouldShowEmpty,
+}: {
+  query: string;
+  setQuery: any;
+  setShouldShowEmpty: any;
+}) {
   const onTextEnter = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setQuery(e.target.value);
+      if (!query) {
+        setShouldShowEmpty(true); // clearing search form after previous search rerenders result section (no alert msg when form is emptied and on reentering letters/txt)
+      }
     },
-    [setQuery]
+    [query, setQuery, setShouldShowEmpty]
   );
 
   return (

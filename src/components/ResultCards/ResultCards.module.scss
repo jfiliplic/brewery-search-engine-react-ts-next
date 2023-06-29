@@ -6,6 +6,15 @@
   margin: 0 auto;
   padding: 30px 30px;
   color: white;
+
+  h3.noMatch {
+    text-align: center;
+    color: $color-white-base;
+    font-family: $font-function;
+    font-size: var(--font-function-size);
+    font-weight: bold;
+    text-transform: uppercase;
+  }
 }
 
 .singleResultLink {

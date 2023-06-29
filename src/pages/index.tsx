@@ -15,6 +15,7 @@ export default function Home() {
   const [keyword, setKeyword] = useState("name");
   const [query, setQuery] = useState("");
   const [queryResults, setQueryResults] = useState([]);
+  const [shouldShowEmpty, setShouldShowEmpty] = useState(true);
 
   const fetchBreweries = useCallback(
     async (url: string, keyword: string) => {
@@ -53,7 +54,13 @@ export default function Home() {
   const fetchData = useCallback(
     async (query: string, keyword: string) => {
       const breweriesData = await handleKeywords(query, keyword);
-      setQueryResults(breweriesData);
+      if (!(breweriesData.length > 0)) {
+        setShouldShowEmpty(false); // to show alert msg for no hit search
+        setQueryResults([]); // to prevent showing results of last successful search before no hit search while entering text for new search
+      } else {
+        setQueryResults(breweriesData);
+        // setShouldShowEmpty(true);
+      }
     },
     [handleKeywords]
   );
@@ -63,6 +70,8 @@ export default function Home() {
       e.preventDefault();
 
       if (!query) {
+        // setShouldShowEmpty(true);
+        setQueryResults([]); //submitting empty search form with "Enter" rerenders result section according to 1st condition
         return;
       }
       fetchData(query, keyword);
@@ -80,10 +89,18 @@ export default function Home() {
       </header>
       <main>
         <form className={styles.search} onSubmit={onSearchbarSubmit}>
-          <Searchbar query={query} setQuery={setQuery} />
+          <Searchbar
+            query={query}
+            setQuery={setQuery}
+            setShouldShowEmpty={setShouldShowEmpty}
+          />
           <KeywordRadioBtnGroup keyword={keyword} setKeyword={setKeyword} />
         </form>
-        <ResultCards queryResults={queryResults} />
+        <ResultCards
+          queryResults={queryResults}
+          query={query}
+          shouldShowEmpty={shouldShowEmpty}
+        />
       </main>
     </>
   );
