@@ -5,7 +5,7 @@ import styles from "./ResultCards.module.scss";
 
 // ver2: če zbrišeš formo (ne glede na rezultate), pri ponovnem tipkanju stari prikaz (rezultati ali no match) izgine. dodal v KeywordRadioBtnGroup, da prikaz izgine ob menjavi radio gumba
 
-// glavna razlika med ver1 in ver2: pri ver2 prikaz izgine šele, ko zbrišem formo in natipkam prvo črko (če rezultat ali brez), pri ver1 pa, ko izbrišem zadnjo črko
+// glavna razlika med ver1 in ver2: pri ver2 prikaz izgine šele, ko zbrišem formo in natipkam prvo črko (če rezultat ali no match), pri ver1 pa že, ko izbrišem zadnjo črko (in samo takrat,ko no match. če rezultat, pa prikaz ostane, dokler ne potrdim novega search z enter)
 
 export function ResultCards({
   queryResults,
