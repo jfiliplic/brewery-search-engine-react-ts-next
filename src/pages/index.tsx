@@ -55,11 +55,11 @@ export default function Home() {
     async (query: string, keyword: string) => {
       const breweriesData = await handleKeywords(query, keyword);
       if (!(breweriesData.length > 0)) {
-        setShouldShowEmpty(false); // to show alert msg for no hit search
-        // setQueryResults([]); // to prevent showing results of last successful search before no hit search while entering text for new search. ver2 - če to odstranim, se ne spremeni nič
+        setShouldShowEmpty(false);
+        // clearing queryResults after previous successful search
+        setQueryResults([]);
       } else {
         setQueryResults(breweriesData);
-        // setShouldShowEmpty(true); // ver1 - če to odvzamem, se ne spremeni nič; ver2 - če to dodam, se ne spremeni nič
       }
     },
     [handleKeywords]
@@ -68,10 +68,7 @@ export default function Home() {
   const onSearchbarSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-
       if (!query) {
-        setShouldShowEmpty(true); // ver1 - če to odvzamem, se ne spremeni 0; ver2 - če to dodam, dela tudi z no match: ubmitting empty search form with "Enter" rerenders result section according to 1st condition;
-        setQueryResults([]); //submitting empty search form with "Enter" rerenders result section according to 1st condition; ver2 - samo če rezultati, če no match, po enter ne vrže ven null. če vzamem stran, ne dela niti, če rezultati
         return;
       }
       fetchData(query, keyword);
@@ -89,22 +86,11 @@ export default function Home() {
       </header>
       <main>
         <form className={styles.search} onSubmit={onSearchbarSubmit}>
-          <Searchbar
-            query={query}
-            setQuery={setQuery}
-            setQueryResults={setQueryResults}
-            setShouldShowEmpty={setShouldShowEmpty}
-          />
-          <KeywordRadioBtnGroup
-            keyword={keyword}
-            setKeyword={setKeyword}
-            setQueryResults={setQueryResults}
-            setShouldShowEmpty={setShouldShowEmpty}
-          />
+          <Searchbar setQuery={setQuery} />
+          <KeywordRadioBtnGroup keyword={keyword} setKeyword={setKeyword} />
         </form>
         <ResultCards
           queryResults={queryResults}
-          query={query}
           shouldShowEmpty={shouldShowEmpty}
         />
       </main>
