@@ -9,7 +9,7 @@ import { Searchbar } from "@/components/Searchbar/Searchbar";
 import { ResultCards } from "@/components/ResultCards/ResultCards";
 import { useState, useCallback } from "react";
 
-const baseEndpoint = "https://api.openbrewerydb.org/v1/breweries";
+export const baseEndpoint = "https://api.openbrewerydb.org/v1/breweries";
 
 export default function Home() {
   const [keyword, setKeyword] = useState("name");
