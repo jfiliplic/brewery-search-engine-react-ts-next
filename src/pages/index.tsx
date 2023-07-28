@@ -3,9 +3,7 @@ import {
   KeywordRadioBtnGroup,
   SearchKeywords,
 } from "@/components/KeywordRadioBtnGroup/KeywordRadioBtnGroup";
-import { ModeToggleBtn } from "@/components/ModeToggleBtn/ModeToggleBtn";
-import { Logo } from "@/components/Logo/Logo";
-import { Searchbar } from "@/components/Searchbar/Searchbar";
+import { Searchbar } from "@/components/SearchBar/Searchbar";
 import { ResultCards } from "@/components/ResultCards/ResultCards";
 import { useState, useCallback } from "react";
 
@@ -78,12 +76,6 @@ export default function Home() {
 
   return (
     <>
-      <section>
-        <ModeToggleBtn />
-      </section>
-      <header>
-        <Logo />
-      </header>
       <main>
         <form className={styles.search} onSubmit={onSearchbarSubmit}>
           <Searchbar setQuery={setQuery} />
