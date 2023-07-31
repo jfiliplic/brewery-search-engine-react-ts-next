@@ -1,0 +1,62 @@
+@use "../../styles/settings/variables.scss" as *;
+
+.resultCards {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px 30px;
+  color: white;
+
+  h3.noMatch {
+    text-align: center;
+    color: $color-white-base;
+    font-family: $font-function;
+    font-size: var(--font-function-size);
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+
+.singleResultLink {
+  text-decoration: none;
+}
+
+.singleCard {
+  margin-bottom: 15px;
+  padding: 25px;
+  border-radius: 10px;
+  background-color: #{"rgba(var(--color-result-card-bg), 0.8)"};
+  box-shadow: var(--box-shadow-result-card);
+  text-align: left;
+  transition: transform 0.2s ease-in-out;
+
+  h2 {
+    display: inline-block;
+    margin: 0;
+    color: #{"rgba(var(--color-result-card-txt), 1.0)"};
+    font-family: $font-content;
+    font-size: var(--font-content-size);
+    font-weight: bold;
+
+    span {
+      margin: 0 20px;
+    }
+  }
+
+  &:hover {
+    z-index: 1;
+    box-shadow: var(--box-shadow-result-card-hover);
+    transform: scale(1.03);
+  }
+
+  &:active {
+    background-color: #{"rgba(var(--color-result-card-bg-active), 0.8)"};
+  }
+}
+
+@media (max-width: $breakpoint) {
+  .singleCard {
+    padding: 10px;
+    line-height: 20px;
+  }
+}
