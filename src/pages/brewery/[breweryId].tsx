@@ -38,8 +38,7 @@ export default function DetailedCard({ breweryData }: { breweryData: any }) {
           {breweryData.phone || "no phone available"}
         </h2>
         <a
-          className={`${styles}${breweryData.website_url ? "" : ".noLink"}`}
-          // className={styles.noLink}
+          className={breweryData.website_url ? "" : styles.noLink}
           href={breweryData.website_url}
           target="_blank"
         >
