@@ -3,7 +3,7 @@ import {
   KeywordRadioBtnGroup,
   SearchKeywords,
 } from "@/components/KeywordRadioBtnGroup/KeywordRadioBtnGroup";
-import { Searchbar } from "@/components/SearchBar/Searchbar";
+import { SearchBar } from "@/components/SearchBar/Searchbar";
 import { ResultCards } from "@/components/ResultCards/ResultCards";
 import { useState, useCallback } from "react";
 
@@ -18,15 +18,15 @@ export default function Home() {
   const fetchBreweries = useCallback(
     async (url: string, keyword: string) => {
       const response = await fetch(url);
+      const unfilteredData = await response.json();
 
       if (keyword === SearchKeywords.country) {
-        const unfilteredData = await response.json();
         return unfilteredData.filter((breweryData: any) =>
           breweryData.country.toLowerCase().includes(query.toLowerCase())
         );
       }
 
-      return await response.json();
+      return unfilteredData;
     },
     [query]
   );
@@ -52,7 +52,7 @@ export default function Home() {
   const fetchData = useCallback(
     async (query: string, keyword: string) => {
       const breweriesData = await handleKeywords(query, keyword);
-      if (!(breweriesData.length > 0)) {
+      if (breweriesData.length === 0) {
         setShouldShowEmpty(false);
         // clearing queryResults after previous successful search
         setQueryResults([]);
@@ -78,7 +78,7 @@ export default function Home() {
     <>
       <main>
         <form className={styles.search} onSubmit={onSearchbarSubmit}>
-          <Searchbar setQuery={setQuery} />
+          <SearchBar setQuery={setQuery} />
           <KeywordRadioBtnGroup keyword={keyword} setKeyword={setKeyword} />
         </form>
         <ResultCards
