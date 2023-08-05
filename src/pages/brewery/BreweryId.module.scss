@@ -1,0 +1,71 @@
+@use "../../styles/settings/variables.scss" as *;
+
+.detailedCardWrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 3rem 1rem;
+}
+
+.detailedCard {
+  margin-bottom: 1.5rem;
+  padding: 2.5rem;
+  border-radius: 10px;
+  background-color: #{"rgba(var(--color-result-card-bg), 0.8)"};
+  box-shadow: var(--box-shadow-result-card);
+  color: #{"rgba(var(--color-result-card-txt), 1.0)"};
+  font-family: $font-content;
+  font-weight: bold;
+  text-align: left;
+  line-height: 2.5;
+
+  h2 {
+    font-size: var(--font-content-size);
+    margin: 0;
+
+    span {
+      font-weight: 100;
+    }
+  }
+
+  a {
+    display: block;
+    color: #{"rgba(var(--color-result-card-txt), 1.0)"};
+    font-size: var(--font-content-size);
+    text-decoration: none;
+    word-wrap: break-word;
+
+    span {
+      font-weight: 100;
+    }
+
+    &:hover {
+      color: rgb(92, 66, 17);
+
+      span {
+        color: #{"rgba(var(--color-result-card-txt), 1.0)"};
+        // cursor: default;
+      }
+    }
+
+    &:active {
+      color: rgb(134, 92, 14);
+    }
+  }
+
+  a.noLink {
+    color: #{"rgba(var(--color-result-card-txt), 1.0)"};
+    text-decoration: none;
+
+    &:hover,
+    &:active {
+      cursor: default;
+    }
+  }
+}
+
+@media (max-width: $breakpoint) {
+  .detailedCard {
+    padding: 1rem;
+    line-height: 2rem;
+  }
+}

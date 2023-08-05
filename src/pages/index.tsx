@@ -3,13 +3,11 @@ import {
   KeywordRadioBtnGroup,
   SearchKeywords,
 } from "@/components/KeywordRadioBtnGroup/KeywordRadioBtnGroup";
-import { ModeToggleBtn } from "@/components/ModeToggleBtn/ModeToggleBtn";
-import { Logo } from "@/components/Logo/Logo";
 import { SearchBar } from "@/components/SearchBar/Searchbar";
 import { ResultCards } from "@/components/ResultCards/ResultCards";
 import { useState, useCallback } from "react";
 
-const baseEndpoint = "https://api.openbrewerydb.org/v1/breweries";
+export const baseEndpoint = "https://api.openbrewerydb.org/v1/breweries";
 
 export default function Home() {
   const [keyword, setKeyword] = useState("name");
@@ -78,12 +76,6 @@ export default function Home() {
 
   return (
     <>
-      <section>
-        <ModeToggleBtn />
-      </section>
-      <header>
-        <Logo />
-      </header>
       <main>
         <form className={styles.search} onSubmit={onSearchbarSubmit}>
           <SearchBar setQuery={setQuery} />
