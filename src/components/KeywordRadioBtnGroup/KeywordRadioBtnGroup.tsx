@@ -33,14 +33,12 @@ function RadioBtn({
 export function KeywordRadioBtnGroup({
   keyword,
   setKeyword,
+  onFilterChange,
 }: {
   keyword: string;
   setKeyword: any;
+  onFilterChange: any;
 }) {
-  const onOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
-  };
-
   return (
     <fieldset className={styles.radioGroupWrapper}>
       {[
@@ -52,7 +50,7 @@ export function KeywordRadioBtnGroup({
         <RadioBtn
           key={value}
           value={value}
-          onChange={onOptionChange}
+          onChange={onFilterChange}
           selected={keyword}
         />
       ))}
