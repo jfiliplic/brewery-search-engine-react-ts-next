@@ -60,13 +60,14 @@ export default function Home() {
 
   const handleFilterChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setKeyword(e.target.value);
+      const keyword = e.target.value;
+      setKeyword(keyword);
       if (!query) {
         return;
       }
       fetchData(query, keyword);
     },
-    [fetchData, keyword, query]
+    [fetchData, query]
   );
 
   const onSearchbarSubmit = useCallback(
