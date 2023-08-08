@@ -1,9 +1,27 @@
 @use "./settings/variables" as *;
 
-:root {
+html {
   --font-content-size: 1.8rem;
   --font-function-size: 1.5rem;
+}
+
+@media (max-width: $breakpoint) {
+  html {
+    --font-content-size: 1.4rem;
+    --font-function-size: 1.2rem;
+  }
+}
+
+// @media (prefers-color-scheme: dark) {
+//   body {
+//     color-scheme: dark;
+//   }
+// }
+
+body {
+  background-color: $color-gray-light;
   background-image: url($url-background-light-image);
+  background-size: cover;
   --color-result-card-bg: #{$color-yellow-base-theme};
   --color-result-card-bg-active: #{$color-yellow-active-theme};
   --box-shadow-result-card: #{$box-shadow-yellow};
@@ -11,12 +29,47 @@
   --color-result-card-txt: #{$color-brown-base-theme};
 }
 
-@media (max-width: $breakpoint) {
-  :root {
-    --font-content-size: 1.4rem;
-    --font-function-size: 1.2rem;
+body.dark {
+  background-color: $color-gray-dark;
+  background-image: url($url-background-dark-image);
+  --color-result-card-bg: #{$color-brown-base-theme};
+  --color-result-card-bg-active: #{$color-brown-active-theme};
+  --color-result-card-txt: #{$color-yellow-base-theme};
+  --box-shadow-result-card: #{$box-shadow-brown};
+  --box-shadow-result-card-hover: #{$box-shadow-brown-hover};
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: $color-gray-dark;
+    background-image: url($url-background-dark-image);
+    --color-result-card-bg: #{$color-brown-base-theme};
+    --color-result-card-bg-active: #{$color-brown-active-theme};
+    --color-result-card-txt: #{$color-yellow-base-theme};
+    --box-shadow-result-card: #{$box-shadow-brown};
+    --box-shadow-result-card-hover: #{$box-shadow-brown-hover};
   }
 }
+
+// :root:not([dark]) {
+//   background-color: $color-gray-light;
+//   background-image: url($url-background-light-image);
+//   --color-result-card-bg: #{$color-yellow-base-theme};
+//   --color-result-card-bg-active: #{$color-yellow-active-theme};
+//   --box-shadow-result-card: #{$box-shadow-yellow};
+//   --box-shadow-result-card-hover: #{$box-shadow-yellow-hover};
+//   --color-result-card-txt: #{$color-brown-base-theme};
+// }
+
+// :root[dark] {
+//   background-color: $color-gray-dark;
+//   background-image: url($url-background-dark-image);
+//   --color-result-card-bg: #{$color-brown-base-theme};
+//   --color-result-card-bg-active: #{$color-brown-active-theme};
+//   --color-result-card-txt: #{$color-yellow-base-theme};
+//   --box-shadow-result-card: #{$box-shadow-brown};
+//   --box-shadow-result-card-hover: #{$box-shadow-brown-hover};
+// }
 
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 
@@ -32,7 +85,6 @@ html {
   box-sizing: border-box;
   background-color: inherit;
   background-image: inherit;
-  background-size: cover;
   font-size: 62.5%; // 10px / 16px = 62.5% -> 1rem = 10px
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
