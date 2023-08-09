@@ -1,6 +1,6 @@
 import styles from "./KeywordRadioBtnGroup.module.scss";
 
-export const SearchKeywords = {
+export const FilterKeywords = {
   name: "name",
   city: "city",
   country: "country",
@@ -31,27 +31,27 @@ function RadioBtn({
 }
 
 export function KeywordRadioBtnGroup({
-  keyword,
-  setKeyword,
+  filterKeyword,
+  setFilterKeyword,
   onFilterChange,
 }: {
-  keyword: string;
-  setKeyword: any;
+  filterKeyword: string;
+  setFilterKeyword: any;
   onFilterChange: any;
 }) {
   return (
     <fieldset className={styles.radioGroupWrapper}>
       {[
-        SearchKeywords.name,
-        SearchKeywords.city,
-        SearchKeywords.country,
-        SearchKeywords.any,
+        FilterKeywords.name,
+        FilterKeywords.city,
+        FilterKeywords.country,
+        FilterKeywords.any,
       ].map((value) => (
         <RadioBtn
           key={value}
           value={value}
           onChange={onFilterChange}
-          selected={keyword}
+          selected={filterKeyword}
         />
       ))}
     </fieldset>

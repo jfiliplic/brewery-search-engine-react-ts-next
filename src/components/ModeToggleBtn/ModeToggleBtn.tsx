@@ -40,7 +40,7 @@ export const ModeToggleBtn = () => {
           type="checkbox"
           id="toggle"
           className={styles.toggleInput}
-          checked={isDark} //??
+          checked={isDark}
           onChange={handleModeToggleBtn}
         />
         <span className={styles.toggleButton}></span>
