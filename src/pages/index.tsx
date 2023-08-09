@@ -52,15 +52,22 @@ export default function Home() {
   const fetchData = useCallback(
     async (query: string, keyword: string) => {
       const breweriesData = await handleKeywords(query, keyword);
-      if (breweriesData.length === 0) {
-        setShouldShowEmpty(false);
-        // clearing queryResults after previous successful search
-        setQueryResults([]);
-      } else {
-        setQueryResults(breweriesData);
-      }
+      setShouldShowEmpty(false);
+      setQueryResults(breweriesData);
     },
     [handleKeywords]
+  );
+
+  const handleFilterChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const keyword = e.target.value;
+      setKeyword(keyword);
+      if (!query) {
+        return;
+      }
+      fetchData(query, keyword);
+    },
+    [fetchData, query]
   );
 
   const onSearchbarSubmit = useCallback(
@@ -79,7 +86,11 @@ export default function Home() {
       <main>
         <form className={styles.search} onSubmit={onSearchbarSubmit}>
           <SearchBar setQuery={setQuery} />
-          <KeywordRadioBtnGroup keyword={keyword} setKeyword={setKeyword} />
+          <KeywordRadioBtnGroup
+            keyword={keyword}
+            setKeyword={setKeyword}
+            onFilterChange={handleFilterChange}
+          />
         </form>
         <ResultCards
           queryResults={queryResults}
