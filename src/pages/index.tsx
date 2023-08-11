@@ -14,6 +14,7 @@ export default function Home() {
   const [query, setQuery] = useState("");
   const [queryResults, setQueryResults] = useState([]);
   const [shouldShowEmpty, setShouldShowEmpty] = useState(true);
+  const [resultPageNumber, setResultPageNumber] = useState(0);
 
   const fetchBreweries = useCallback(
     async (url: string, _filterKeyword: string) => {
@@ -70,7 +71,7 @@ export default function Home() {
     [fetchData, query]
   );
 
-  const onSearchbarSubmit = useCallback(
+  const handleSearchbarSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (!query) {
@@ -84,7 +85,7 @@ export default function Home() {
   return (
     <>
       <main>
-        <form className={styles.search} onSubmit={onSearchbarSubmit}>
+        <form className={styles.search} onSubmit={handleSearchbarSubmit}>
           <SearchBar setQuery={setQuery} />
           <KeywordRadioBtnGroup
             filterKeyword={filterKeyword}
@@ -95,6 +96,7 @@ export default function Home() {
         <ResultCards
           queryResults={queryResults}
           shouldShowEmpty={shouldShowEmpty}
+          resultPageNumber={resultPageNumber}
         />
       </main>
     </>

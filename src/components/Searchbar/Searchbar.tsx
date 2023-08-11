@@ -2,7 +2,7 @@ import styles from "./Searchbar.module.scss";
 import { useCallback } from "react";
 
 export function SearchBar({ setQuery }: { setQuery: any }) {
-  const onTextEnter = useCallback(
+  const handleTextEnter = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setQuery(e.target.value);
     },
@@ -19,7 +19,7 @@ export function SearchBar({ setQuery }: { setQuery: any }) {
         placeholder="Search by:"
         autoComplete="off"
         spellCheck="false"
-        onChange={onTextEnter}
+        onChange={handleTextEnter}
       />
     </>
   );
