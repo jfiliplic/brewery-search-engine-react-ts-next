@@ -15,6 +15,7 @@ export default function Home() {
   const [queryResults, setQueryResults] = useState([]);
   const [shouldShowEmpty, setShouldShowEmpty] = useState(true);
   const [resultPageNumber, setResultPageNumber] = useState(0);
+  const [totalResults, setTotalResults] = useState(null);
 
   const fetchBreweries = useCallback(
     async (url: string, _filterKeyword: string) => {
@@ -55,6 +56,7 @@ export default function Home() {
       const breweriesData = await handleFilterKeywords(query, _filterKeyword);
       setShouldShowEmpty(false);
       setQueryResults(breweriesData);
+      setTotalResults(breweriesData.length);
     },
     [handleFilterKeywords]
   );
@@ -97,6 +99,7 @@ export default function Home() {
           queryResults={queryResults}
           shouldShowEmpty={shouldShowEmpty}
           resultPageNumber={resultPageNumber}
+          totalResults={totalResults}
         />
       </main>
     </>
