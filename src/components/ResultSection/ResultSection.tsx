@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { NavBtns } from "../NavBtns/NavBtns";
-import styles from "./ResultCards.module.scss";
+import styles from "./ResultSection.module.scss";
 
-function SingleCard({
+function ResultCards({
   queryResults,
   resultPageNumber,
 }: {
@@ -18,12 +18,10 @@ function SingleCard({
     resultsPerPage = totalResults - resultsBehind;
   }
 
-  console.log(totalResults);
-
   return (
     <>
       {(() => {
-        const singleCardHtml = queryResults
+        const resultCardsHtml = queryResults
           .slice(
             resultsBehind,
             resultsCurrentAhead > resultsPerPage
@@ -49,20 +47,22 @@ function SingleCard({
               </div>
             </Link>
           ));
-        return singleCardHtml;
+        return resultCardsHtml;
       })()}
     </>
   );
 }
 
-export function ResultCards({
+export function ResultSection({
   queryResults,
   shouldShowEmpty,
   resultPageNumber,
+  setResultPageNumber,
 }: {
   queryResults: any[];
   shouldShowEmpty: boolean;
   resultPageNumber: number;
+  setResultPageNumber: any;
 }) {
   const totalResults = queryResults.length;
 
@@ -84,8 +84,9 @@ export function ResultCards({
       <NavBtns
         queryResults={queryResults}
         resultPageNumber={resultPageNumber}
+        setResultPageNumber={setResultPageNumber}
       />
-      <SingleCard
+      <ResultCards
         queryResults={queryResults}
         resultPageNumber={resultPageNumber}
       />
