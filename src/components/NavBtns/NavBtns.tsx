@@ -20,20 +20,10 @@ export function NavBtns({
   }
 
   const handleNavBtnClick = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    (direction: "forward" | "back") => {
       const numberOfSteps = Math.floor(totalResults / resultsPerPage);
-      const target = event.currentTarget;
-      const changeType = target.getAttribute("data-change-type");
-    //   const increasePageNumber = () =>
-    //     setResultPageNumber(
-    //       (prevResultPageNumber: number) => prevResultPageNumber + 1
-    //     );
-    //   const decreasePageNumber = () =>
-    //     setResultPageNumber(
-    //       (prevResultPageNumber: number) => prevResultPageNumber - 1
-    //     );
 
-      if (changeType === "forward") {
+      if (direction === "forward") {
         if (resultPageNumber < numberOfSteps) {
           setResultPageNumber(
             (prevResultPageNumber: number) => prevResultPageNumber + 1
@@ -65,8 +55,7 @@ export function NavBtns({
           id="back"
           className={styles.back}
           disabled={resultsBehind ? false : true}
-          data-change-type="back"
-          onClick={handleNavBtnClick}
+          onClick={() => handleNavBtnClick("back")}
         >
           &lt;&lt;
         </button>
@@ -77,8 +66,7 @@ export function NavBtns({
           id="forward"
           className={styles.forward}
           disabled={resultsCurrentAhead > resultsPerPage ? false : true}
-          data-change-type="forward"
-          onClick={handleNavBtnClick}
+          onClick={() => handleNavBtnClick("forward")}
         >
           &gt;&gt;
         </button>
