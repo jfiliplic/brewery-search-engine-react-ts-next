@@ -51,7 +51,7 @@ export default function DetailedCard({ breweryData }: { breweryData: any }) {
   );
 }
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ params }: { params: any }) {
   let breweryData: any = null;
 
   const response = await fetch(`${baseEndpoint}/${params.breweryId}`);

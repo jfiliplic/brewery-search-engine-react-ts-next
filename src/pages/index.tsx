@@ -1,7 +1,7 @@
 import styles from "../styles/Page.module.scss";
 import {
   KeywordRadioBtnGroup,
-  SearchKeywords,
+  FilterKeywords,
 } from "@/components/KeywordRadioBtnGroup/KeywordRadioBtnGroup";
 import { SearchBar } from "@/components/SearchBar/Searchbar";
 import { ResultCards } from "@/components/ResultCards/ResultCards";
@@ -10,17 +10,17 @@ import { useState, useCallback } from "react";
 export const baseEndpoint = "https://api.openbrewerydb.org/v1/breweries";
 
 export default function Home() {
-  const [keyword, setKeyword] = useState("name");
+  const [filterKeyword, setFilterKeyword] = useState("name");
   const [query, setQuery] = useState("");
   const [queryResults, setQueryResults] = useState([]);
   const [shouldShowEmpty, setShouldShowEmpty] = useState(true);
 
   const fetchBreweries = useCallback(
-    async (url: string, keyword: string) => {
+    async (url: string, _filterKeyword: string) => {
       const response = await fetch(url);
       const unfilteredData = await response.json();
 
-      if (keyword === SearchKeywords.country) {
+      if (_filterKeyword === FilterKeywords.country) {
         return unfilteredData.filter((breweryData: any) =>
           breweryData.country.toLowerCase().includes(query.toLowerCase())
         );
@@ -31,41 +31,41 @@ export default function Home() {
     [query]
   );
 
-  const handleKeywords = useCallback(
-    async (query: string, keyword: string) => {
+  const handleFilterKeywords = useCallback(
+    async (query: string, _filterKeyword: string) => {
       let url = baseEndpoint;
-      if (keyword === SearchKeywords.country) {
+      if (_filterKeyword === FilterKeywords.country) {
         url = url + `/search?query=${query}`;
-      } else if (keyword === SearchKeywords.any) {
+      } else if (_filterKeyword === FilterKeywords.any) {
         url = url + `/search?query=${query}`;
       } else {
-        url = url + `?by_${keyword}=${query}`;
+        url = url + `?by_${_filterKeyword}=${query}`;
       }
 
       url = url + `&per_page=200`;
 
-      return fetchBreweries(url, keyword);
+      return fetchBreweries(url, _filterKeyword);
     },
     [fetchBreweries]
   );
 
   const fetchData = useCallback(
-    async (query: string, keyword: string) => {
-      const breweriesData = await handleKeywords(query, keyword);
+    async (query: string, _filterKeyword: string) => {
+      const breweriesData = await handleFilterKeywords(query, _filterKeyword);
       setShouldShowEmpty(false);
       setQueryResults(breweriesData);
     },
-    [handleKeywords]
+    [handleFilterKeywords]
   );
 
   const handleFilterChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const keyword = e.target.value;
-      setKeyword(keyword);
+      const _filterKeyword = e.target.value;
+      setFilterKeyword(_filterKeyword);
       if (!query) {
         return;
       }
-      fetchData(query, keyword);
+      fetchData(query, _filterKeyword);
     },
     [fetchData, query]
   );
@@ -76,9 +76,9 @@ export default function Home() {
       if (!query) {
         return;
       }
-      fetchData(query, keyword);
+      fetchData(query, filterKeyword);
     },
-    [query, fetchData, keyword]
+    [query, fetchData, filterKeyword]
   );
 
   return (
@@ -87,8 +87,8 @@ export default function Home() {
         <form className={styles.search} onSubmit={onSearchbarSubmit}>
           <SearchBar setQuery={setQuery} />
           <KeywordRadioBtnGroup
-            keyword={keyword}
-            setKeyword={setKeyword}
+            filterKeyword={filterKeyword}
+            setFilterKeyword={setFilterKeyword}
             onFilterChange={handleFilterChange}
           />
         </form>
