@@ -4,7 +4,7 @@ import {
   FilterKeywords,
 } from "@/components/KeywordRadioBtnGroup/KeywordRadioBtnGroup";
 import { SearchBar } from "@/components/SearchBar/Searchbar";
-import { ResultCards } from "@/components/ResultCards/ResultCards";
+import { ResultSection } from "@/components/ResultSection/ResultSection";
 import { useState, useCallback } from "react";
 
 export const baseEndpoint = "https://api.openbrewerydb.org/v1/breweries";
@@ -14,6 +14,8 @@ export default function Home() {
   const [query, setQuery] = useState("");
   const [queryResults, setQueryResults] = useState([]);
   const [shouldShowEmpty, setShouldShowEmpty] = useState(true);
+  const [resultPageNumber, setResultPageNumber] = useState(0);
+  // const [totalResults, setTotalResults] = useState(0);
 
   const fetchBreweries = useCallback(
     async (url: string, _filterKeyword: string) => {
@@ -54,6 +56,8 @@ export default function Home() {
       const breweriesData = await handleFilterKeywords(query, _filterKeyword);
       setShouldShowEmpty(false);
       setQueryResults(breweriesData);
+      setResultPageNumber(0);
+      // setTotalResults(breweriesData.length);
     },
     [handleFilterKeywords]
   );
@@ -70,7 +74,7 @@ export default function Home() {
     [fetchData, query]
   );
 
-  const onSearchbarSubmit = useCallback(
+  const handleSearchbarSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (!query) {
@@ -84,7 +88,7 @@ export default function Home() {
   return (
     <>
       <main>
-        <form className={styles.search} onSubmit={onSearchbarSubmit}>
+        <form className={styles.search} onSubmit={handleSearchbarSubmit}>
           <SearchBar setQuery={setQuery} />
           <KeywordRadioBtnGroup
             filterKeyword={filterKeyword}
@@ -92,9 +96,11 @@ export default function Home() {
             onFilterChange={handleFilterChange}
           />
         </form>
-        <ResultCards
+        <ResultSection
           queryResults={queryResults}
           shouldShowEmpty={shouldShowEmpty}
+          resultPageNumber={resultPageNumber}
+          setResultPageNumber={setResultPageNumber}
         />
       </main>
     </>
