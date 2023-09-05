@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { useRouter } from "next/router";
 import styles from "./NavBtns.module.scss";
 
 export function NavBtns({
@@ -14,6 +15,7 @@ export function NavBtns({
   const totalResults = queryResults.length;
   const resultsBehind = resultPageNumber * resultsPerPage;
   const resultsCurrentAhead = totalResults - resultsBehind;
+  // const { push, query } = useRouter();
 
   if (totalResults - resultsBehind < resultsPerPage) {
     resultsPerPage = totalResults - resultsBehind;
@@ -39,6 +41,42 @@ export function NavBtns({
     },
     [resultPageNumber, resultsPerPage, setResultPageNumber, totalResults]
   );
+
+  // const handleNavBtnClick = useCallback(
+  //   (direction: "forward" | "back") => {
+  //     const numberOfSteps = Math.floor(totalResults / resultsPerPage);
+
+  //     if (direction === "forward") {
+  //       if (resultPageNumber < numberOfSteps) {
+  //         setResultPageNumber((prevResultPageNumber: number) => {
+  //           const newResultPageNumber = prevResultPageNumber + 1;
+  //           push({ query: { ...query, p: newResultPageNumber } }, undefined, {
+  //             shallow: true,
+  //           });
+  //           return newResultPageNumber;
+  //         });
+  //       }
+  //     } else {
+  //       if (resultPageNumber > 0) {
+  //         setResultPageNumber((prevResultPageNumber: number) => {
+  //           const newResultPageNumber = prevResultPageNumber - 1;
+  //           push({ query: { ...query, p: newResultPageNumber } }, undefined, {
+  //             shallow: true,
+  //           });
+  //           return newResultPageNumber;
+  //         });
+  //       }
+  //     }
+  //   },
+  //   [
+  //     push,
+  //     query,
+  //     resultPageNumber,
+  //     resultsPerPage,
+  //     setResultPageNumber,
+  //     totalResults,
+  //   ]
+  // );
 
   return (
     <div className={styles.pagination} data-resultpagenumber={resultPageNumber}>

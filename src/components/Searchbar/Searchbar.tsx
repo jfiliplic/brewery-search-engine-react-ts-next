@@ -1,12 +1,12 @@
 import styles from "./Searchbar.module.scss";
 import { useCallback } from "react";
 
-export function SearchBar({ setQuery }: { setQuery: any }) {
+export function SearchBar({ setQ }: { setQ: any }) {
   const handleTextEnter = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setQuery(e.target.value);
+      setQ(e.target.value);
     },
-    [setQuery]
+    [setQ]
   );
 
   return (
