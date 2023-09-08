@@ -16,16 +16,10 @@ export default function Home() {
   const [queryResults, setQueryResults] = useState([]);
   const [shouldShowEmpty, setShouldShowEmpty] = useState(true);
   const [resultPageNumber, setResultPageNumber] = useState(0);
-  // const [totalResults, setTotalResults] = useState(0);
   const { push, query } = useRouter();
+  console.log(query.q);
 
-  useEffect(() => {
-    if (q) {
-      push({ query: { ...query, p: resultPageNumber } }, undefined, {
-        shallow: true,
-      });
-    }
-  }, [filterKeyword, push, q, query, resultPageNumber]);
+  // const [totalResults, setTotalResults] = useState(0);
 
   const fetchBreweries = useCallback(
     async (url: string, _filterKeyword: string) => {
@@ -66,10 +60,10 @@ export default function Home() {
       const breweriesData = await handleFilterKeywords(q, _filterKeyword);
       setShouldShowEmpty(false);
       setQueryResults(breweriesData);
-      setResultPageNumber(0);
+      setResultPageNumber(query.p ? parseInt(query.p as string) : 0);
       // setTotalResults(breweriesData.length);
     },
-    [handleFilterKeywords]
+    [handleFilterKeywords, query.p]
   );
 
   const handleFilterChange = useCallback(
@@ -79,12 +73,12 @@ export default function Home() {
       if (!q) {
         return;
       }
-      fetchData(q, _filterKeyword);
-      push({ query: { ...query, f: _filterKeyword } }, undefined, {
+      // fetchData(q, _filterKeyword);
+      push({ query: { ...query, f: _filterKeyword, p: 0 } }, undefined, {
         shallow: true,
       });
     },
-    [fetchData, push, q, query]
+    [push, q, query]
   );
 
   const handleSearchbarSubmit = useCallback(
@@ -93,13 +87,22 @@ export default function Home() {
       if (!q) {
         return;
       }
-      fetchData(q, filterKeyword);
-      push({ query: { ...query, q: q, f: filterKeyword } }, undefined, {
+      // fetchData(q, filterKeyword);
+      push({ query: { ...query, q: q, f: filterKeyword, p: 0 } }, undefined, {
         shallow: true,
       });
     },
-    [q, fetchData, filterKeyword, push, query]
+    [q, filterKeyword, push, query]
   );
+
+  useEffect(() => {
+    if (query.q && query.f) {
+      console.log(query.q, query.f);
+      fetchData(query.q as string, query.f as string);
+    } else {
+      setShouldShowEmpty(true);
+    }
+  }, [fetchData, query.f, query.q]);
 
   return (
     <>
