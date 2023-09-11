@@ -12,7 +12,7 @@ export const baseEndpoint = "https://api.openbrewerydb.org/v1/breweries";
 
 export default function Home() {
   const [filterKeyword, setFilterKeyword] = useState("name");
-  const [q, setQ] = useState("");
+  // const [q, setQ] = useState("");
   const [queryResults, setQueryResults] = useState([]);
   const [shouldShowEmpty, setShouldShowEmpty] = useState(true);
   const [resultPageNumber, setResultPageNumber] = useState(0);
@@ -28,13 +28,15 @@ export default function Home() {
 
       if (_filterKeyword === FilterKeywords.country) {
         return unfilteredData.filter((breweryData: any) =>
-          breweryData.country.toLowerCase().includes(q.toLowerCase())
+          breweryData.country
+            .toLowerCase()
+            .includes((query.q as string).toLowerCase())
         );
       }
 
       return unfilteredData;
     },
-    [q]
+    [query.q]
   );
 
   const handleFilterKeywords = useCallback(
@@ -71,25 +73,28 @@ export default function Home() {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const _filterKeyword = e.target.value;
       setFilterKeyword(_filterKeyword);
-      if (!q) {
+      if (!query.q) {
         // setting q url param to enable filter change & query with existing search term after clicking back button from detailed result card
-        if (query.q) {
-          setQ(query.q as string);
-        } else {
-          return;
-        }
+        return;
+        // if (query.q) {
+        //   setQ(query.q as string);
+        // } else {
+        //   return;
+        // }
       }
       // fetchData(q, _filterKeyword);
       push({ query: { ...query, f: _filterKeyword, p: 0 } }, undefined, {
         shallow: true,
       });
     },
-    [push, q, query]
+    [push, query]
   );
 
   const handleSearchbarSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+      console.log((e.target as any).searchbar.value);
+      const q = (e.target as any).searchbar.value;
       if (!q) {
         return;
       }
@@ -98,7 +103,7 @@ export default function Home() {
         shallow: true,
       });
     },
-    [q, filterKeyword, push, query]
+    [filterKeyword, push, query]
   );
 
   useEffect(() => {
@@ -111,13 +116,13 @@ export default function Home() {
     else {
       setShouldShowEmpty(true);
     }
-  }, [fetchData, q, query.f, query.q]);
+  }, [fetchData, query.f, query.q]);
 
   return (
     <>
       <main>
         <form className={styles.search} onSubmit={handleSearchbarSubmit}>
-          <SearchBar setQ={setQ} />
+          <SearchBar />
           <KeywordRadioBtnGroup
             filterKeyword={filterKeyword}
             setFilterKeyword={setFilterKeyword}
