@@ -40,9 +40,10 @@ export default function Home() {
   const handleFilterKeywords = useCallback(
     async (q: string, _filterKeyword: string) => {
       let url = baseEndpoint;
-      if (_filterKeyword === FilterKeywords.country) {
-        url = url + `/search?query=${q}`;
-      } else if (_filterKeyword === FilterKeywords.any) {
+      if (
+        _filterKeyword === FilterKeywords.country ||
+        _filterKeyword === FilterKeywords.any
+      ) {
         url = url + `/search?query=${q}`;
       } else {
         url = url + `?by_${_filterKeyword}=${q}`;
@@ -71,7 +72,12 @@ export default function Home() {
       const _filterKeyword = e.target.value;
       setFilterKeyword(_filterKeyword);
       if (!q) {
-        return;
+        // setting q url param to enable filter change & query with existing search term after clicking back button from detailed result card
+        if (query.q) {
+          setQ(query.q as string);
+        } else {
+          return;
+        }
       }
       // fetchData(q, _filterKeyword);
       push({ query: { ...query, f: _filterKeyword, p: 0 } }, undefined, {
@@ -96,13 +102,16 @@ export default function Home() {
   );
 
   useEffect(() => {
-    if (query.q && query.f) {
+    if (query.q) {
       console.log(query.q, query.f);
       fetchData(query.q as string, query.f as string);
-    } else {
+    }
+
+    // emptying result section when no params in url (when clicking back button until initial page)
+    else {
       setShouldShowEmpty(true);
     }
-  }, [fetchData, query.f, query.q]);
+  }, [fetchData, q, query.f, query.q]);
 
   return (
     <>
