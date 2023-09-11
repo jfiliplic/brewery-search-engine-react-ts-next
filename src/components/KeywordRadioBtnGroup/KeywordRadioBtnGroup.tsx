@@ -21,7 +21,8 @@ function RadioBtn({
       <input
         type="radio"
         id={value}
-        value={value}
+        // value={value}
+        defaultValue={value}
         checked={selected === value}
         onChange={onChange}
       />

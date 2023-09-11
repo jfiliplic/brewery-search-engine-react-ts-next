@@ -4,6 +4,12 @@ import { useRouter } from "next/router";
 
 export function SearchBar() {
   const { query } = useRouter();
+  // const handleTextEnter = useCallback(
+  //   (e: React.ChangeEvent<HTMLInputElement>) => {
+  //     e.target.value = "";
+  //   },
+  //   []
+  // );
   return (
     <>
       <label htmlFor="searchbar"></label>
@@ -13,8 +19,9 @@ export function SearchBar() {
         name="searchbar"
         placeholder="Search by:"
         autoComplete="off"
-        value={query.q}
+        defaultValue={query.q || ""}
         spellCheck="false"
+        // onChange={handleTextEnter}
       />
     </>
   );
