@@ -12,14 +12,10 @@ export const baseEndpoint = "https://api.openbrewerydb.org/v1/breweries";
 
 export default function Home() {
   const [filterKeyword, setFilterKeyword] = useState("name");
-  // const [q, setQ] = useState("");
   const [queryResults, setQueryResults] = useState([]);
   const [shouldShowEmpty, setShouldShowEmpty] = useState(true);
   const [resultPageNumber, setResultPageNumber] = useState(0);
   const { push, query } = useRouter();
-  console.log(query.q);
-
-  // const [totalResults, setTotalResults] = useState(0);
 
   const fetchBreweries = useCallback(
     async (url: string, _filterKeyword: string) => {
@@ -64,7 +60,6 @@ export default function Home() {
       setShouldShowEmpty(false);
       setQueryResults(breweriesData);
       setResultPageNumber(query.p ? parseInt(query.p as string) : 0);
-      // setTotalResults(breweriesData.length);
     },
     [handleFilterKeywords, query.p]
   );
@@ -74,15 +69,8 @@ export default function Home() {
       const _filterKeyword = e.target.value;
       setFilterKeyword(_filterKeyword);
       if (!query.q) {
-        // setting q url param to enable filter change & query with existing search term after clicking back button from detailed result card
         return;
-        // if (query.q) {
-        //   setQ(query.q as string);
-        // } else {
-        //   return;
-        // }
       }
-      // fetchData(q, _filterKeyword);
       push({ query: { ...query, f: _filterKeyword, p: 0 } }, undefined, {
         shallow: true,
       });
@@ -98,7 +86,6 @@ export default function Home() {
       if (!q) {
         return;
       }
-      // fetchData(q, filterKeyword);
       push({ query: { ...query, q: q, f: filterKeyword, p: 0 } }, undefined, {
         shallow: true,
       });

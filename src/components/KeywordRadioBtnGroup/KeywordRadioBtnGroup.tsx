@@ -1,4 +1,5 @@
 import styles from "./KeywordRadioBtnGroup.module.scss";
+import { useRouter } from "next/router";
 
 export const FilterKeywords = {
   name: "name",
@@ -21,8 +22,7 @@ function RadioBtn({
       <input
         type="radio"
         id={value}
-        // value={value}
-        defaultValue={value}
+        value={value}
         checked={selected === value}
         onChange={onChange}
       />
@@ -40,6 +40,8 @@ export function KeywordRadioBtnGroup({
   setFilterKeyword: any;
   onFilterChange: any;
 }) {
+  const { query } = useRouter();
+
   return (
     <fieldset className={styles.radioGroupWrapper}>
       {[
@@ -52,7 +54,7 @@ export function KeywordRadioBtnGroup({
           key={value}
           value={value}
           onChange={onFilterChange}
-          selected={filterKeyword}
+          selected={(query.f as string) || filterKeyword}
         />
       ))}
     </fieldset>
