@@ -81,7 +81,6 @@ export default function Home() {
   const handleSearchbarSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      console.log((e.target as any).searchbar.value);
       const q = (e.target as any).searchbar.value;
       if (!q) {
         return;
