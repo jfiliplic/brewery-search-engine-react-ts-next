@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 
 export function SearchBar() {
   const { query } = useRouter();
-  console.log(query.q);
 
   return (
     <>

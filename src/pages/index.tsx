@@ -95,12 +95,8 @@ export default function Home() {
 
   useEffect(() => {
     if (query.q) {
-      console.log(query.q, query.f);
       fetchData(query.q as string, query.f as string);
-    }
-
-    // emptying result section when no params in url (when clicking back button until initial page)
-    else {
+    } else {
       setShouldShowEmpty(true);
     }
   }, [fetchData, query.f, query.q]);
