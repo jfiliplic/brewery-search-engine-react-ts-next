@@ -1,13 +1,8 @@
 import styles from "./Searchbar.module.scss";
-import { useCallback } from "react";
+import { useRouter } from "next/router";
 
-export function SearchBar({ setQuery }: { setQuery: any }) {
-  const handleTextEnter = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setQuery(e.target.value);
-    },
-    [setQuery]
-  );
+export function SearchBar() {
+  const { query } = useRouter();
 
   return (
     <>
@@ -18,9 +13,10 @@ export function SearchBar({ setQuery }: { setQuery: any }) {
         name="searchbar"
         placeholder="Search by:"
         autoComplete="off"
+        defaultValue={query.q || ""}
         spellCheck="false"
-        onChange={handleTextEnter}
       />
     </>
   );
 }
+

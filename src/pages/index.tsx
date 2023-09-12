@@ -5,17 +5,17 @@ import {
 } from "@/components/KeywordRadioBtnGroup/KeywordRadioBtnGroup";
 import { SearchBar } from "@/components/SearchBar/Searchbar";
 import { ResultSection } from "@/components/ResultSection/ResultSection";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { useRouter } from "next/router";
 
 export const baseEndpoint = "https://api.openbrewerydb.org/v1/breweries";
 
 export default function Home() {
   const [filterKeyword, setFilterKeyword] = useState("name");
-  const [query, setQuery] = useState("");
   const [queryResults, setQueryResults] = useState([]);
   const [shouldShowEmpty, setShouldShowEmpty] = useState(true);
   const [resultPageNumber, setResultPageNumber] = useState(0);
-  // const [totalResults, setTotalResults] = useState(0);
+  const { push, query } = useRouter();
 
   const fetchBreweries = useCallback(
     async (url: string, _filterKeyword: string) => {
@@ -24,24 +24,27 @@ export default function Home() {
 
       if (_filterKeyword === FilterKeywords.country) {
         return unfilteredData.filter((breweryData: any) =>
-          breweryData.country.toLowerCase().includes(query.toLowerCase())
+          breweryData.country
+            .toLowerCase()
+            .includes((query.q as string).toLowerCase())
         );
       }
 
       return unfilteredData;
     },
-    [query]
+    [query.q]
   );
 
   const handleFilterKeywords = useCallback(
-    async (query: string, _filterKeyword: string) => {
+    async (q: string, _filterKeyword: string) => {
       let url = baseEndpoint;
-      if (_filterKeyword === FilterKeywords.country) {
-        url = url + `/search?query=${query}`;
-      } else if (_filterKeyword === FilterKeywords.any) {
-        url = url + `/search?query=${query}`;
+      if (
+        _filterKeyword === FilterKeywords.country ||
+        _filterKeyword === FilterKeywords.any
+      ) {
+        url = url + `/search?query=${q}`;
       } else {
-        url = url + `?by_${_filterKeyword}=${query}`;
+        url = url + `?by_${_filterKeyword}=${q}`;
       }
 
       url = url + `&per_page=200`;
@@ -52,44 +55,56 @@ export default function Home() {
   );
 
   const fetchData = useCallback(
-    async (query: string, _filterKeyword: string) => {
-      const breweriesData = await handleFilterKeywords(query, _filterKeyword);
+    async (q: string, _filterKeyword: string) => {
+      const breweriesData = await handleFilterKeywords(q, _filterKeyword);
       setShouldShowEmpty(false);
       setQueryResults(breweriesData);
-      setResultPageNumber(0);
-      // setTotalResults(breweriesData.length);
+      setResultPageNumber(query.p ? parseInt(query.p as string) : 0);
     },
-    [handleFilterKeywords]
+    [handleFilterKeywords, query.p]
   );
 
   const handleFilterChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const _filterKeyword = e.target.value;
       setFilterKeyword(_filterKeyword);
-      if (!query) {
+      if (!query.q) {
         return;
       }
-      fetchData(query, _filterKeyword);
+      push({ query: { ...query, f: _filterKeyword, p: 0 } }, undefined, {
+        shallow: true,
+      });
     },
-    [fetchData, query]
+    [push, query]
   );
 
   const handleSearchbarSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      if (!query) {
+      const q = (e.target as any).searchbar.value;
+      if (!q) {
         return;
       }
-      fetchData(query, filterKeyword);
+      push({ query: { ...query, q: q, f: filterKeyword, p: 0 } }, undefined, {
+        shallow: true,
+      });
     },
-    [query, fetchData, filterKeyword]
+    [filterKeyword, push, query]
   );
+
+  useEffect(() => {
+    if (query.q) {
+      fetchData(query.q as string, query.f as string);
+    } else {
+      setShouldShowEmpty(true);
+    }
+  }, [fetchData, query.f, query.q]);
 
   return (
     <>
       <main>
         <form className={styles.search} onSubmit={handleSearchbarSubmit}>
-          <SearchBar setQuery={setQuery} />
+          <SearchBar />
           <KeywordRadioBtnGroup
             filterKeyword={filterKeyword}
             setFilterKeyword={setFilterKeyword}
