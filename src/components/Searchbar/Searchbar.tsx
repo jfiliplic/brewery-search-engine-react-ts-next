@@ -1,4 +1,4 @@
-import styles from "./Searchbar.module.scss";
+import styles from "./SearchBar.module.scss";
 import { useRouter } from "next/router";
 
 export function SearchBar() {
