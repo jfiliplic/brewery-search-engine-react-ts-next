@@ -14,7 +14,7 @@
 
 body {
   background-color: $color-gray-light;
-  background-image: url($url-background-light-image);
+  background-image: url("/bg-light2.jpg");
   background-size: cover;
   --color-result-card-bg: #{$color-yellow-base-theme};
   --color-result-card-bg-active: #{$color-yellow-active-theme};
@@ -25,7 +25,7 @@ body {
 
 body.dark {
   background-color: $color-gray-dark;
-  background-image: url($url-background-dark-image);
+  background-image: url("/bg-dark1.jpg");
   --color-result-card-bg: #{$color-brown-base-theme};
   --color-result-card-bg-active: #{$color-brown-active-theme};
   --color-result-card-txt: #{$color-yellow-base-theme};
