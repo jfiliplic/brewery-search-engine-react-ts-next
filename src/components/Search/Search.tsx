@@ -1,4 +1,4 @@
-import styles from "./SearchBar.module.scss";
+import styles from "./Search.module.scss";
 import { useRouter } from "next/router";
 
 export function SearchBar() {
@@ -19,4 +19,3 @@ export function SearchBar() {
     </>
   );
 }
-

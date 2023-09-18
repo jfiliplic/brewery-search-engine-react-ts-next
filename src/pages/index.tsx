@@ -3,7 +3,7 @@ import {
   KeywordRadioBtnGroup,
   FilterKeywords,
 } from "@/components/KeywordRadioBtnGroup/KeywordRadioBtnGroup";
-import { SearchBar } from "@/components/SearchBar/Searchbar";
+import { SearchBar } from "@/components/Search/Search";
 import { ResultSection } from "@/components/ResultSection/ResultSection";
 import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/router";
