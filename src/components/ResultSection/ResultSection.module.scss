@@ -34,7 +34,7 @@
     display: inline-block;
     margin: 0;
     color: #{"rgba(var(--color-result-card-txt), 1.0)"};
-    font-family: $font-content;
+    font-family: var(--font-content);
     font-size: var(--font-content-size);
     font-weight: bold;
 

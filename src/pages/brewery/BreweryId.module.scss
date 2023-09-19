@@ -13,7 +13,7 @@
   background-color: #{"rgba(var(--color-result-card-bg), 0.8)"};
   box-shadow: var(--box-shadow-result-card);
   color: #{"rgba(var(--color-result-card-txt), 1.0)"};
-  font-family: $font-content;
+  font-family: var(--font-content);
   font-weight: bold;
   text-align: left;
   line-height: 2.5;
